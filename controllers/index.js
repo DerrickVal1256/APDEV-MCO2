@@ -56,11 +56,34 @@ router.get('/helpdesk', async (req,resp) => {
 router.get('/home', async (req, res) => {
     try {
         const user = await User.findById(req.session.userId).lean(); 
-        const laboratories = await Laboratory.find({}).lean();
+        // const reservations = await Laboratory.find({}).lean();
+        let reservations =  await Laboratory.aggregate([
+            {
+                $unwind: "$reservationData", // Deconstruct the reservationData array
+            },
+            {
+                $unwind: "$reservationData.reservationList", // Deconstruct the reservationList array
+            },
+            {
+                $match: {
+                "reservationData.reservationList.UserID": user.id,
+                },
+            },
+            {
+                $project: {
+                _id: 0, // Exclude the _id field
+                labName: "name",
+                reservation: "$reservationData.reservationList" , // Include only the reservationList field
+                },
+            },
+        ]);
+
+        console.log(reservations);
+        
         res.render('main', { 
             layout:'index', 
             title: 'Home',
-            laboratories, user });
+            reservations, user });
     } catch (error) {
         errorFn(error);
     }
@@ -69,11 +92,31 @@ router.get('/home', async (req, res) => {
 router.post('/home', async (req, res) => {
     try {
         const user = await User.findById(req.session.userId).lean(); 
-        const laboratories = await Laboratory.find({}).lean();
+        // const reservations = await Laboratory.find({}).lean();
+        let reservations =  await Laboratory.aggregate([
+            {
+                $unwind: "$reservationData", // Deconstruct the reservationData array
+            },
+            {
+                $unwind: "$reservationData.reservationList", // Deconstruct the reservationList array
+            },
+            {
+                $match: {
+                "reservationData.reservationList.UserID": user.id,
+                },
+            },
+            {
+                $project: {
+                _id: 0, // Exclude the _id field
+                reservation: "$reservationData.reservationList" , // Include only the reservationList field
+                },
+            },
+        ]);
+
         res.render('main', { 
             layout:'index', 
             title: 'Home',
-            laboratories, user });
+            reservations, user });
     } catch (error) {
         errorFn(error);
     }

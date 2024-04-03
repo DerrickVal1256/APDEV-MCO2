@@ -6,14 +6,37 @@
 </head>
 <body>
  <div id="main">
-    <h1>Laboratories List</h1>
-    {{#each labs}}
+    <h1>Your Reservations</h1>
+    <table>
+        <tr>
+            {{!-- Lab column --}}
+            <th>Lab Number</th>
+            
+            {{!-- Slot column --}}
+            <th>Slot Number</th>
+            
+            {{!-- Date column --}}
+            <th>Date</th> 
+            
+            {{!-- Time column --}}
+            <th>Time</th>
+            
+            {{!-- Edit/Cancel column --}}
+            <th>Edit/Cancel</th>
+        </tr>
+        {{#each labs}}
+        <tr>
+        </tr>
+    </table>
+    {{!-- {{#each labs}}
         <div class="box" id="lab{{id}}">
             <p><b>{{name}}</b></p>
             <p>{{status}}</p>
             <p><b>{{usage}}</b> out of {{capacity}}</p>
         </div>
-    {{/each}}
+    {{/each}} --}}
+
+    lab   Slot  Date   Time   Edit Cancel
 </div>
 </body>
 </html>

@@ -1,10 +1,38 @@
 <div id="main">
-    <h1>Laboratories List</h1>
-    {{#each laboratories}}
+    <h1>Your Reservations</h1>
+    <table>
+        <tr>
+            {{!-- Lab column --}}
+            <th>Lab Number</th>
+            
+            {{!-- Slot column --}}
+            <th>Slot Number</th>
+            
+            {{!-- Date column --}}
+            <th>Date</th> 
+            
+            {{!-- Time column --}}
+            <th>Time</th>
+            
+            {{!-- Edit/Cancel column --}}
+            <th>Edit/Cancel</th>
+        </tr>
+
+        {{#each reservations}}
+        <tr>
+            <td>{{reservation.name}}</td>
+            <td>{{reservation.SlotID}}</td>
+            <td>{{reservation.date}}</td>
+            <td>{{reservation.time}}</td>   
+            <td>TRY LNG</td>
+        </tr>
+        {{/each}}
+    </table>
+    {{!-- {{#each laboratories}}
         <div class="box" id="lab{{id}}">
             <p><b>{{name}}</b></p>
             <p>{{status}}</p>
             <p><b>{{usage}}</b> out of {{capacity}}</p>
         </div>
-    {{/each}}
+    {{/each}} --}}
 </div>
