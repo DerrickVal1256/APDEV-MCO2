@@ -11,7 +11,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     store: MongoStore.create({
-       mongoUrl: 'mongodb://localhost:27017/test',
+       mongoUrl: 'mongodb+srv://mattmongodb:mattmongodb@cluster0.awy4yvt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/test',
        collectionName: 'sessions'
     })
    }));
